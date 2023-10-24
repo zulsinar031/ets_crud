@@ -11,7 +11,7 @@ app.config['MYSQL_DB'] = 'ets_db'
 
 mysql = MySQL(app)
 
-@app.route('/')
+#@app.route('/')
 @app.route('/ets_login', methods =['GET', 'POST'])
 def login():
     if request.method == 'POST':
