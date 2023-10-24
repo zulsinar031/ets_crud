@@ -34,7 +34,7 @@ def login():
             session['user_name'] = user['user_name']
             session['user_email'] = user['user_email']
             mesage = 'Logged in successfully !'
-            return render_template('user.html', mesage = mesage)
+            return render_template('ets_user.html', mesage = mesage)
         else: 
             mesage = 'Please enter the correct email/password!'
         cursor.close()
