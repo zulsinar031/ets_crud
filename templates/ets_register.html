@@ -15,10 +15,9 @@
 </head>
 <body>
     <h1>Registration Form</h1>
-    <form method="post" action="/ets_register">
         <div>
             <label>Name :</label>
-            <input type="text" name="name" placeholder="Name" required>
+            <input type="text" name="username" placeholder="Name" required>
         </div>
         <div>
             <label>Email :</label>
@@ -28,7 +27,48 @@
             <label>Password :</label>
             <input type="password" name="password" placeholder="Password" required>
         </div>
-        <button type="submit">Register</button>
-    </form>
+        <button id="submit">Register</button>
+
+        <script>
+            const submit = document.getElementById("submit");
+            submit.addEventListener("click", () => {
+                // Disable submit button
+                submit.disabled = true;
+
+                const username = document.querySelector(
+                    "input[name=username]"
+                ).value;
+                const email = document.querySelector(
+                    "input[name=email]"
+                ).value;
+                const password = document.querySelector(
+                    "input[name=password]"
+                ).value;
+                fetch("/ets_register", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        email:email,
+                        password: password,
+                    }),
+                })
+                    .then((res) => res.json())
+                    .then((res) => {
+                        if (res.status == "success") {
+                            window.location.href = "/ets_login";
+                        } else if (res.status == "failed") {
+                            alert(res.message);
+                        } else {
+                            alert("Something went wrong.");
+                        }
+                    });
+
+                // Enable submit button
+                submit.disabled = false;
+            });
+        </script>
 </body>
 </html>
